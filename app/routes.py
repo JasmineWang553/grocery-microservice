@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from app.database import grocery_collection
 from app.models import GroceryItem
 from bson import ObjectId
-import datetime
+from datetime import datetime, timezone
 
 router = APIRouter()
 
@@ -25,7 +25,7 @@ async def add_item(item: GroceryItem):
         raise HTTPException(status_code=400, detail="Item already exists in the grocery list")
 
     item_dict = item.model_dump()
-    item_dict["date"] = datetime.datetime.now(datetime.UTC)
+    item_dict["date"] = datetime.utcnow().replace(tzinfo=timezone.utc)
     inserted_item = grocery_collection.insert_one(item_dict)
     return {"message": "Item added successfully", "id": str(inserted_item.inserted_id)}
 

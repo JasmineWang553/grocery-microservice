@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 from app.main import app, clear_test_data  # Ensure you have a function to reset DB
 from bson import ObjectId
 from unittest.mock import MagicMock, patch
-import datetime 
+from datetime import datetime, timezone
 
 # Clear pytest cache before running tests
 pytest.main(["--cache-clear"])
@@ -64,7 +64,7 @@ def test_get_items(mock_grocery_collection):
     """Test retrieving the grocery list with a mocked database."""
     
     # Fix UTC handling
-    current_time = datetime.datetime.now(datetime.timezone.utc)
+    current_time = datetime.utcnow().replace(tzinfo=timezone.utc)
 
     # Mocked grocery item (wrapped in a list)
     item_data = [{
