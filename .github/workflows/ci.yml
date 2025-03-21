@@ -17,8 +17,10 @@ jobs:
       with:
         username: ${{ vars.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build the Docker image
-      run: docker build -t grocery-microservice .
-    - name: Push to Dockerhub
-      run: docker push JasmineWang553/grocery-microservice:latest
+
+    - name: Build Docker image
+      run: docker build -t jasminewang553/grocery-microservice:latest .
+
+    - name: Push Docker image to Docker Hub
+      run: docker push jasminewang553/grocery-microservice:latest
       
