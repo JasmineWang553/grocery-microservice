@@ -11,3 +11,4 @@ Instrumentator().instrument(app).expose(app)
 def clear_test_data():
     """Clears all items from the database to ensure a fresh state for tests."""
     grocery_collection.delete_many({})
+    
